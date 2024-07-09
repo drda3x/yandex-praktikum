@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, useHistory, Switch } from "react-router-dom";
+import { Route, useHistory, Switch, Link } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -10,11 +10,14 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import Register from "./Register";
-import Login from "./Login";
+//import Register from "./Register";
+//import Login from "./Login";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
 import * as auth from "../utils/auth.js";
+
+const Login = React.lazy(() => import("auth/Login"));
+const Register = React.lazy(() => import("auth/Register"));
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -199,10 +202,15 @@ function App() {
           />
           {/*Роут /signup и /signin не является защищёнными, т.е оборачивать их в HOC ProtectedRoute не нужно.*/}
           <Route path="/signup">
-            <Register onRegister={onRegister} />
+            <React.Suspense fallback="Loading Register">
+                <Register onRegister={onRegister} 
+						  backLink={<Link className="auth-form__link" to="/signin">Войти</Link>} />
+            </React.Suspense>
           </Route>
           <Route path="/signin">
-            <Login onLogin={onLogin} />
+            <React.Suspense fallback="Loading Login">
+                <Login onLogin={onLogin} />
+            </React.Suspense>
           </Route>
         </Switch>
         <Footer />

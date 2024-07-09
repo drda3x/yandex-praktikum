@@ -1,6 +1,7 @@
 import React from 'react';
 
-import '../blocks/login/login.css';
+import '../styles/auth-form/auth-form.css';
+import '../styles/login/login.css';
 
 function Login ({ onLogin }){
   const [email, setEmail] = React.useState('');

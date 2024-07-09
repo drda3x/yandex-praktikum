@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Register ({ onRegister }){
+import '../styles/auth-form/auth-form.css';
+
+function Register ({ onRegister, backLink }){
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -31,7 +33,7 @@ function Register ({ onRegister }){
         </div>
         <div className="auth-form__wrapper">
           <button className="auth-form__button" type="submit">Зарегистрироваться</button>
-          <p className="auth-form__text">Уже зарегистрированы? <Link className="auth-form__link" to="/signin">Войти</Link></p>
+          <p className="auth-form__text">Уже зарегистрированы? { backLink } </p>
         </div>
       </form>
     </div>
