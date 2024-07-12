@@ -21,7 +21,9 @@
     "web-vitals": "^1.0.1",
     "webpack": "^5.92.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "webpack-dev-server": "^5.0.4",
+    "react-redux": "8.1.2",
+    "@reduxjs/toolkit": "^1.9.7"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
