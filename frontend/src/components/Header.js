@@ -2,24 +2,25 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import LogoPath from '../images/logo.svg';
 import { useDispatch } from "react-redux"
-import { navigator } from "../utils/reducer"
+import { appStateActions } from "../utils/reducer"
 
 // В корневом компоненте App описаны обработчики: onRegister, onLogin и onSignOut. Эти обработчики переданы в соответствующие компоненты: Register.js, Login.js, Header.js
 function Header ({onSignOut, email }) {
     const dispatch = useDispatch();
-    
-    function handleSignOut(){
-      onSignOut();
-    }
 
     const handleSignin = (e) => {
         e.preventDefault();
-        dispatch(navigator.moveTo("/signin"));
+        dispatch(appStateActions.moveTo("/signin"));
     }
 
     const handleSignup = (e) => {
         e.preventDefault();
-        dispatch(navigator.moveTo("/signup"));
+        dispatch(appStateActions.moveTo("/signup"));
+    }
+
+    const handleSignOut = (e) => {
+        e.preventDefault();
+        dispatch(appStateActions.logout());
     }
 
     return (

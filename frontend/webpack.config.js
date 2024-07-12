@@ -37,7 +37,8 @@ module.exports = {
 	new ModuleFederationPlugin({
 		name: "main",
 		remotes: {
-            auth: "auth@http://localhost:3001/remoteEntry.js"
+            auth: "auth@http://localhost:3001/remoteEntry.js",
+            profile: "profile@http://localhost:3002/remoteEntry.js"
 		},
 		shared: ["react", "react-dom"]
 	}),

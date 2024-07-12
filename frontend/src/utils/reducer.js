@@ -1,18 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const navigationSlice = createSlice({
-    name: 'navigation',
+export const applicationState = createSlice({
+    name: 'applicationState',
     initialState: {
-      value: '/',
+        url: '/',
+        userLoggedIn: false,
+        userEmail: '',
+        userAvatar: '',
+        userName: '',
+        userAbout: ''
     },
     reducers: {
         moveTo: (state, action) => {
-            state.value = action.payload
+            state.url = action.payload
+        },
+        login: (state, action) => {
+            state.userLoggedIn = true;
+            state.userEmail = action.payload;
+        },
+        logout: (state) => {
+            state.userLoggedIn = false;
+            state.userEmail = ""
+        },
+        setUserInfo: (state, action) => {
+            state.userAvatar = action.userAvatar;
+            state.userName = action.userName;
+            state.userAbout = action.userAbout;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const  navigator  = navigationSlice.actions
+export const  appStateActions  = applicationState.actions
 
-export default navigationSlice.reducer
+export default applicationState.reducer

@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import navigationReducer from './reducer'
+import applicationStateReducer from './reducer'
 
 export default configureStore({
    reducer: {
-       navigator: navigationReducer
+       applicationState: applicationStateReducer
    },
 })

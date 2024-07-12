@@ -22,6 +22,11 @@ module.exports = {
           presets: ["@babel/preset-react"],
         },
       },
+      { 
+      	  test: /\.svg$/i,
+      	  issuer: /\.[jt]sx?$/,
+      	  use: ['@svgr/webpack'],
+      },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
@@ -45,7 +50,8 @@ module.exports = {
         filename: "remoteEntry.js",
 		exposes: {
             "./Login": "./src/components/Login",
-            "./Register": "./src/components/Register"
+            "./Register": "./src/components/Register",
+            "./CheckToken": "./src/components/CheckToken"
 		},
 		shared: ["react", "react-dom"]
 	}),

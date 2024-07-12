@@ -1,29 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Provider, useDispatch } from 'react-redux';
+import * as auth from "../utils/auth";
+import InfoTooltip from "../components/InfoTooltip"
 
 import '../styles/auth-form/auth-form.css';
 
-function Register (props){
+function Register ({actions}){
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
+    const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
+	const [tooltipStatus, setTooltipStatus] = React.useState("");
     const dispatch = useDispatch();
-    const navAction = props.navAction;
 
     //const navAction = props.navAction;
 
 	function handleSubmit(e){
 		e.preventDefault();
-		const userData = {
-			email,
-			password
-		}
-		onRegister(userData);
+		auth
+			.register(email, password)
+			.then((res) => {
+                setIsInfoToolTipOpen(true);
+				setTooltipStatus("success");
+			})
+			.catch((err) => {
+				setTooltipStatus("fail");
+				setIsInfoToolTipOpen(true);
+			});
 	}
 
     const handleOnEnterClick = (e) => {
         e.preventDefault();
-        dispatch(navAction("/signin"));
+        dispatch(actions.moveTo("/signin"));
+    }
+
+    const onClose = () => {
+        if (tooltipStatus == "success") {
+            dispatch(actions.moveTo("/signin"));
+        }
+        setIsInfoToolTipOpen(false);
     }
 
 	return (
@@ -44,22 +59,27 @@ function Register (props){
 				</div>
 				<div className="auth-form__wrapper">
 					<button className="auth-form__button" type="submit">Зарегистрироваться</button>
-					<p className="auth-form__text">Уже зарегистрированы?
+					<p className="auth-form__text">Уже зарегистрированы? 
                         <a href="" className="auth-form__link" onClick={handleOnEnterClick}>Войти</a>
                     </p>
 				</div>
 			</form>
+            <InfoTooltip
+                isOpen={isInfoToolTipOpen}
+                onClose={onClose}
+                status={tooltipStatus}
+            />
 		</div>
 	)
 }
 
 const RegisterWrapper = (props) => {
     const store = props.store;
-    const action = props.navAction;
+    const actions = props.actions;
 
     return (
         <Provider store={store}>
-            <Register navAction={action} />
+            <Register actions={actions} />
         </Provider>
     )
 }
