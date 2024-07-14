@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import '../styles/auth-form/auth-form.css';
 import '../styles/login/login.css';
@@ -27,19 +27,39 @@ function Login ({appStateActions}){
     function onLogin({ email, password }) {
         auth.login(email, password)
             .then((res) => {
-                console.log("CALL ONLOGIN");
                 dispatch(appStateActions.login(email))
                 //dispatch(appStateActions.moveTo("/"))
             })
             .catch((err) => {
-                console.log("LOGIN ERROR", err);
                 setTooltipStatus("fail");
                 setIsInfoToolTipOpen(true);
             });
     }
 
-    const onClose = () => {
+    useSelector((state) => {
+        const token = localStorage.getItem("jwt");
+        if (token && !state.applicationState.lastAuthAction) {
+			auth
+				.checkToken(token)
+				.then((res) => {
+                    dispatch(appStateActions.login(email))
+				})
+				.catch((err) => {
+					localStorage.removeItem("jwt");
+				});
+        } else if (state.applicationState.lastAuthAction == "logout") {
+            localStorage.removeItem("jwt");
+        }
+    });
 
+	//React.useEffect(() => {
+	//	const token = localStorage.getItem("jwt");
+	//	if (!isLoggedIn && token) {
+	//	}
+	//}, []);
+
+    const onClose = () => {
+        setIsInfoToolTipOpen(false);
     }
 
     return (

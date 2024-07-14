@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 import api from '../utils/api';
-import '../styles/popup/popup.css';
+
 import '../styles/profile/profile.css';
+import '../styles/popup/popup.css';
 
 import AddPlacePopup from "../components/AddPlacePopup"
 import EditAvatarPopup from "../components/EditAvatarPopup"
@@ -25,16 +26,18 @@ const Profile = ({actions}) => {
         about: ''
     });
 
+    const dispatch = useDispatch();
+
     useSelector((state) => {
         if (
-            userInfo.name !== state.userName ||
-            userInfo.about !== state.userAbout ||
-            userInfo.avatar !== state.userAvatar
+            userInfo.name !== state.applicationState.userName ||
+            userInfo.about !== state.applicationState.userAbout ||
+            userInfo.avatar !== state.applicationState.userAvatar
         ) {
             setUserInfo({
-                name: state.userName,
-                about: state.userAbout,
-                avatar: state.userAvatar
+                name: state.applicationState.userName,
+                about: state.applicationState.userAbout,
+                avatar: state.applicationState.userAvatar
             });
         }
     });
@@ -45,24 +48,12 @@ const Profile = ({actions}) => {
         setIsAddPlacePopupOpen(false);
     }
 
-	const handleEditProfileClick = () => {
-		setIsEditProfilePopupOpen(true);
-	}
-
-	const handleEditAvatarClick = () => {
-		setIsEditAvatarPopupOpen(true);
-	}
-
-	const handleAddPlaceClick = () => {
-		setIsAddPlacePopupOpen(true);
-	}
-
 	const handleUpdateUser = (userUpdate) => {
 		api
 			.setUserInfo(userUpdate)
 			.then((newUserData) => {
-				setCurrentUser(newUserData);
-				closeAllPopups();
+                dispatch(actions.setUserInfo(newUserData))
+                closePopup();
 			})
 			.catch((err) => console.log(err));
 	}
@@ -71,32 +62,33 @@ const Profile = ({actions}) => {
 		api
 			.setUserAvatar(avatarUpdate)
 			.then((newUserData) => {
-				setCurrentUser(newUserData);
-				closeAllPopups();
+                dispatch(actions.setUserAvatar(avatarUpdate.avatar));
+                closePopup();
 			})
 			.catch((err) => console.log(err));
 	}
 
 	const handleAddPlaceSubmit = (newCard) => {
+        console.log(newCard);
 		api
 			.addCard(newCard)
 			.then((newCardFull) => {
-				setCards([newCardFull, ...cards]);
-				closeAllPopups();
+                dispatch(actions.addCard(newCardFull));
+                closePopup();
 			})
 			.catch((err) => console.log(err));
 	}
 
     const onEditAvatar = () => {
-
+		setIsEditAvatarPopupOpen(true);
     }
 
     const onEditProfile = () => {
-
+		setIsEditProfilePopupOpen(true);
     }
 
     const onAddPlace = () => {
-
+		setIsAddPlacePopupOpen(true);
     }
 
     const imageStyle = { backgroundImage: `url(${userInfo.avatar})` };

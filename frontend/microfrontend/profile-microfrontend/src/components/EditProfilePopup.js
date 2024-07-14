@@ -38,7 +38,7 @@ function EditProfilePopup({ isOpen, onUpdateUser, onClose, currentUser }) {
       <label className="popup__label">
         <input type="text" name="userName" id="owner-name"
                className="popup__input popup__input_type_name" placeholder="Имя"
-               required minLength="2" maxLength="40" pattern="[a-zA-Zа-яА-Я -]{1,}"
+               required minLength="2" maxLength="40" pattern="[a-zA-Zа-яА-Я]{1,}"
                value={name || ''} onChange={handleNameChange} />
         <span className="popup__error" id="owner-name-error"></span>
       </label>

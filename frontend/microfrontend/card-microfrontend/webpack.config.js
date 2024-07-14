@@ -7,7 +7,7 @@ module.exports = {
   entry: "./src/index",
   mode: "development",
   devServer: {
-    port: 3000,
+    port: 3003,
   },
   output: {
     publicPath: "auto",
@@ -30,16 +30,26 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
+      },
+	  {
+      	  test: /\.s[ac]ss$/i,
+      	  use: [
+      	    // Creates `style` nodes from JS strings
+      	    'style-loader',
+      	    // Translates CSS into CommonJS
+      	    'css-loader',
+      	    // Compiles Sass to CSS
+      	    'sass-loader',
+      	  ],
       }
     ],
   },
   plugins: [
 	new ModuleFederationPlugin({
-		name: "main",
-		remotes: {
-            auth: "auth@http://localhost:3001/remoteEntry.js",
-            profile: "profile@http://localhost:3002/remoteEntry.js",
-            card: "card@http://localhost:3003/remoteEntry.js"
+		name: "card",
+        filename: "remoteEntry.js",
+		exposes: {
+            "./CardsList": "./src/components/Card"
 		},
 		shared: ["react", "react-dom"]
 	}),

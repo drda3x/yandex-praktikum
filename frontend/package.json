@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "webpack serve",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "build": "webpack",
     "test": "react-scripts test",
     "test:microfrontend": "npx jest ./index.spec.js",
     "eject": "react-scripts eject"

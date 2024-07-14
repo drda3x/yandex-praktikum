@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux"
 import { appStateActions } from "../utils/reducer"
 
 // В корневом компоненте App описаны обработчики: onRegister, onLogin и onSignOut. Эти обработчики переданы в соответствующие компоненты: Register.js, Login.js, Header.js
-function Header ({onSignOut, email }) {
+function Header ({ email }) {
     const dispatch = useDispatch();
 
     const handleSignin = (e) => {

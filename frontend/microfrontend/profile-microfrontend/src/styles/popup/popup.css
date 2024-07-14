@@ -16,6 +16,7 @@
 @import url('./_type/popup_type_edit-avatar.css');
 @import url('./__icon/popup__icon.css');
 @import url('./__status-message/popup__status-message.css');
+@import url('./_is-opened/popup_is-opened.css');
 
 .popup {
   font-family: 'Inter', Arial, sans-serif;
