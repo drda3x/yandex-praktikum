@@ -1,0 +1,11 @@
+.popup_is-opened {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+  /* When opening, make the visibility change immediate with no delay */
+  transition: visibility 0s, opacity 0.6s !important;
+}
+
+.popup_is-opened .popup__title {
+    color: #000;
+}
