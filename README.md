@@ -1,5 +1,4 @@
 # Задание 1
-/frontend
 
 ## Компоненты и технологии
 В приложении 3 бизнес-функции: управление доступом, управление данными пользователя и управление контентом пользователя.
@@ -13,17 +12,17 @@
 
 
 ## Установка 
-Главное приложение - npm i 
-Авторизация - cd microfrontend/auth-microfrontend && npm i
-Профиль - cd microfrontend/profile-microfrontend && npm i
-Карточки фотографий - cd microfrontend/profile-microfrontend && npm i
+- Главное приложение - cd frontend/ && npm i 
+- Авторизация - cd frontend/microfrontend/auth-microfrontend && npm i
+- Профиль - cd frontend/microfrontend/profile-microfrontend && npm i
+- Карточки фотографий - cd frontend/microfrontend/profile-microfrontend && npm i
 
 
 ## Запуск приложения
-Главное приложение - npm start (http:/localhost:3000)
-Авторизация - cd microfrontend/auth-microfrontend && npm start (http://localhost:3001)
-Профиль - cd microfrontend/profile-microfrontend && npm start (http://localhost:3002)
-Карточки фотографий - cd microfrontend/profile-microfrontend && npm start (http://localhost:3003)
+- Главное приложение - cd frontend/ && npm start (http:/localhost:3000)
+- Авторизация - cd frontend/microfrontend/auth-microfrontend && npm start (http://localhost:3001)
+- Профиль - cd frontend/microfrontend/profile-microfrontend && npm start (http://localhost:3002)
+- Карточки фотографий - cd frontend/microfrontend/profile-microfrontend && npm start (http://localhost:3003)
 
 
 ## Обоснование решения
